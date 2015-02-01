@@ -96,10 +96,10 @@ vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 command! -nargs=1 -range SuperRetab <line1>,<line2>s/\v%(^ *)@<= {<args>}/\t/g
 
 " colorscheme solarized
-"let g:solarized_termcolors=16
-"set t_Co=16
-"set background=dark
-"colorscheme solarized
+let g:solarized_termcolors=16
+set t_Co=16
+set background=dark
+colorscheme solarized
 
 " mappings for netrw shorcut keys
 noremap <Leader><Tab> :call VexToggle(getcwd())<CR>
