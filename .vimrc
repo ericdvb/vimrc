@@ -10,6 +10,8 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'docunext/closetag.vim'
+Plugin 'Raimondi/delimitMate'
 
 call vundle#end() " required
 
@@ -64,7 +66,7 @@ set lazyredraw
 set noerrorbells
 
 " enable syntax highlighting
-syntax enable
+syntax on 
 
 " turn off the swapfile
 set noswapfile
@@ -112,7 +114,7 @@ augroup END
 
 " netrw settings
 let g:netrw_banner=0  " no banner
-let g:netrw_altv=1    " open files on right
+"let g:netrw_altv=1    " open files on right
 let g:netrw_preview=1 " open previews vertically
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
