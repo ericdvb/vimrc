@@ -12,6 +12,8 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'docunext/closetag.vim'
 Plugin 'Raimondi/delimitMate'
+Plugin 'Vimball'
+Plugin 'bling/vim-airline'
 
 call vundle#end() " required
 
@@ -88,6 +90,9 @@ map <leader>te :Tex<cr>
 " format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
+" shortcut to copy to system clipboard
+vmap '' :w !pbcopy<CR><CR>
+
 " when you press gv, vimgrep after selected text
 vnoremap <silent> gv :call VisualSelection('gv')<CR>
 
@@ -114,7 +119,8 @@ augroup END
 
 " netrw settings
 let g:netrw_banner=0  " no banner
-"let g:netrw_altv=1    " open files on right
+let g:netrw_browse_split=0
+let g:netrw_altv=1    " open files on right
 let g:netrw_preview=1 " open previews vertically
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -154,6 +160,7 @@ fun! VexClose()
   1wincmd w
   close
   unlet t:vex_buf_nr
+  let g:netrw_browse_split=0
 
   execut (target_nr - 1) . "wincmd w"
   call NormalizeWidths()
