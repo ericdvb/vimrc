@@ -85,7 +85,7 @@ map <leader>tm :tabmove<cr>
 map <leader>te :Tex<cr>
 
 " always show status line
-" set laststatus=2
+ set laststatus=2
 
 " format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
