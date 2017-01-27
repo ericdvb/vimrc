@@ -3,19 +3,18 @@ filetype off     " required
 
 " set runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin()
 
-" Let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+" vim-plug plugins
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'https://github.com/vim-airline/vim-airline.git'
+Plug 'delimitMate.vim'
+Plug 'docunext/closetag.vim'
+Plug 'https://github.com/terryma/vim-multiple-cursors.git'
+Plug 'pangloss/vim-javascript'
 
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'docunext/closetag.vim'
-Plugin 'Raimondi/delimitMate'
-Plugin 'Vimball'
-Plugin 'bling/vim-airline'
-
-call vundle#end() " required
+call plug#end() " required
 
 " alternative nerdcommenter delimiters
 let g:NERDCustomDelimiters = {
@@ -85,10 +84,7 @@ map <leader>tm :tabmove<cr>
 map <leader>te :Tex<cr>
 
 " always show status line
- set laststatus=2
-
-" format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+set laststatus=2
 
 " shortcut to copy to system clipboard
 vmap '' :w !pbcopy<CR><CR>
@@ -108,10 +104,6 @@ set t_Co=16
 set background=dark
 colorscheme solarized
 
-" mappings for netrw shorcut keys
-noremap <Leader><Tab> :call VexToggle(getcwd())<CR>
-noremap <Leader>` :call VexToggle("")<CR>
-
 " normalize window widths when opening a new vertical split from netrw
 augroup NetrwGroup
   autocmd! BufEnter * call NormalizeWidths()
@@ -126,52 +118,6 @@ let g:netrw_preview=1 " open previews vertically
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    en
-    return ''
-endfunction
-
-fun! VexToggle(dir)
-  if exists("t:vex_buf_nr")
-    call VexClose()
-  else
-    call VexOpen(a:dir)
-  endif 
-endf
-
-fun! VexOpen(dir)
-  let g:netrw_browse_split=4
-  let vex_width = 25
-
-  execute "Vexplore" . a:dir 
-  let t:vex_buf_nr = bufnr("%")
-  wincmd H
-
-  call VexSize(vex_width)
-endf
-
-fun! VexClose()
-  let cur_win_nr = winnr()
-  let target_nr = ( cur_win_nr == 1 ? winnr("#") : cur_win_nr )
-
-  1wincmd w
-  close
-  unlet t:vex_buf_nr
-  let g:netrw_browse_split=0
-
-  execut (target_nr - 1) . "wincmd w"
-  call NormalizeWidths()
-endf
-
-fun! VexSize(vex_width)
-  execute "vertical resize" . a:vex_width
-  set winfixwidth
-  call NormalizeWidths()
-endf
-
 fun! NormalizeWidths()
   let eadir_pref = &eadirection
   set eadirection=hor
