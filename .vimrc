@@ -13,6 +13,10 @@ Plug 'delimitMate.vim'
 Plug 'docunext/closetag.vim'
 Plug 'https://github.com/terryma/vim-multiple-cursors.git'
 Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'rking/ag.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-surround'
 
 call plug#end() " required
 
@@ -109,11 +113,35 @@ augroup NetrwGroup
   autocmd! BufEnter * call NormalizeWidths()
 augroup END
 
+"allow jsx syntax highlighting in js files
+let g:jsx_ext_required = 0
+
 " netrw settings
 let g:netrw_banner=0  " no banner
 let g:netrw_browse_split=0
 let g:netrw_altv=1    " open files on right
 let g:netrw_preview=1 " open previews vertically
+
+" NERDTree settings
+
+" open splits to the right of current split. not NERDTree specific.
+set splitright
+
+" open nerdtree with \`
+map <leader>` :NERDTreeToggle<CR>
+
+" close vim if nerdtree is the only thing left 
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" open nerdtree if no file is specified on the command line
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" open nerdtree to the file that's open in your current tab
+nnoremap <silent> <Leader>`f :NERDTreeFind<CR>
+
+"close nerdtree when you open a file
+let NERDTreeQuitOnOpen = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
